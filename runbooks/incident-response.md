@@ -1,6 +1,6 @@
 # Incident Response Runbook
 
-How we run an incident from page to resolution. The goal is fast, calm coordination —
+How we run an incident from page to resolution. The goal is fast, calm coordination 
 clear roles, predictable comms, and a bias toward mitigation over diagnosis.
 
 ## Roles
@@ -19,8 +19,8 @@ For small incidents one person may hold multiple roles. For SEV1, split IC and O
 1. **Acknowledge** the page within the on-call SLA (5 min). Run `scripts/ack-page.sh`.
 2. **Declare** in `#incidents`: open a channel/thread, state suspected severity, assume IC.
 3. **Assess** against the [severity matrix](severity-matrix.md). Set severity explicitly.
-4. **Stabilize first.** Prefer reversible mitigation — roll back the last deploy, fail
-   over, shed load, scale out — *before* root-causing. A known-good rollback beats a
+4. **Stabilize first.** Prefer reversible mitigation  roll back the last deploy, fail
+   over, shed load, scale out  *before* root-causing. A known-good rollback beats a
    clever fix under pressure.
 5. **Communicate** on cadence (see below). Post the first update within 15 minutes.
 6. **Resolve** once the SLI recovers and is stable. Announce resolution.

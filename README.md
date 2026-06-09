@@ -7,7 +7,7 @@
 
 A working SRE toolkit: **error-budget policy**, **incident-response runbooks**, a
 **severity matrix**, a **postmortem template**, and **Confluent-Kafka-on-Kubernetes
-monitoring** (Prometheus alert rules + a Grafana dashboard) — plus helper scripts for
+monitoring** (Prometheus alert rules + a Grafana dashboard)  plus helper scripts for
 on-call triage.
 
 > Distilled from running SLO-driven reliability for production services: defining
@@ -55,7 +55,7 @@ scripts/
 |------------------|--------|
 | > 50% | Ship freely. |
 | 10–50% | Ship, but prioritize reliability fixes alongside features. |
-| < 10% | **Feature freeze** — only reliability work and approved exceptions until budget recovers. |
+| < 10% | **Feature freeze**  only reliability work and approved exceptions until budget recovers. |
 | Exhausted | Freeze + incident review; SLO/target re-evaluated. |
 
 Full policy: [slo/error-budget-policy.md](slo/error-budget-policy.md).

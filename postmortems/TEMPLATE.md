@@ -23,7 +23,7 @@ What customers experienced, how many, for how long. SLO/error-budget consumed.
 | 00:XX | Resolved |
 
 ## Root cause
-The technical chain of events. Use "5 whys" if helpful — stop at a systemic cause, not a person.
+The technical chain of events. Use "5 whys" if helpful  stop at a systemic cause, not a person.
 
 ## What went well
 - 

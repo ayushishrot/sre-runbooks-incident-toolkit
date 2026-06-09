@@ -1,6 +1,6 @@
 # Runbook: Kafka Consumer Lag
 
-**Trigger:** `KafkaConsumerLagHigh` — a consumer group's lag exceeds threshold and is
+**Trigger:** `KafkaConsumerLagHigh`  a consumer group's lag exceeds threshold and is
 growing (Confluent Kafka on Kubernetes).
 
 ## 1. Scope it

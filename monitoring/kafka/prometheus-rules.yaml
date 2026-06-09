@@ -31,7 +31,7 @@ spec:
             severity: warning
           annotations:
             summary: "Growing consumer lag on {{ $labels.consumergroup }}"
-            description: "Lag is trending upward and not draining — consumers may be falling behind."
+            description: "Lag is trending upward and not draining  consumers may be falling behind."
 
     - name: kafka.broker
       rules:
@@ -42,7 +42,7 @@ spec:
             severity: critical
           annotations:
             summary: "Under-replicated partitions on broker {{ $labels.pod }}"
-            description: "{{ $value }} under-replicated partitions — broker or replication trouble."
+            description: "{{ $value }} under-replicated partitions  broker or replication trouble."
 
         - alert: KafkaOfflinePartitions
           expr: kafka_controller_kafkacontroller_offlinepartitionscount > 0
@@ -51,7 +51,7 @@ spec:
             severity: critical
           annotations:
             summary: "Offline Kafka partitions"
-            description: "{{ $value }} partitions are offline — data unavailable for those partitions."
+            description: "{{ $value }} partitions are offline  data unavailable for those partitions."
 
         - alert: KafkaBrokerDown
           expr: up{job="kafka"} == 0

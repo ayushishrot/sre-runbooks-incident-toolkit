@@ -1,16 +1,16 @@
 # SLO Catalog
 
 Example SLOs by service tier. Each SLO names an SLI (the measurement), a target, and a
-window. Targets are deliberately *achievable* — an SLO you always meet by a wide margin
+window. Targets are deliberately *achievable*  an SLO you always meet by a wide margin
 is set too low to be useful; one you always miss erodes trust in the number.
 
 ## Tiers
 
 | Tier | Description | Default availability SLO | Latency SLO |
 |------|-------------|--------------------------|-------------|
-| **0 — critical** | Revenue path, auth | 99.95% / 30d | p99 < 300ms |
-| **1 — core** | Primary product APIs | 99.9% / 30d | p99 < 500ms |
-| **2 — supporting** | Internal/back-office | 99.5% / 30d | p99 < 1s |
+| **0  critical** | Revenue path, auth | 99.95% / 30d | p99 < 300ms |
+| **1  core** | Primary product APIs | 99.9% / 30d | p99 < 500ms |
+| **2  supporting** | Internal/back-office | 99.5% / 30d | p99 < 1s |
 
 ## SLI definitions
 

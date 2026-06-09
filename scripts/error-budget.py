@@ -56,7 +56,7 @@ def main() -> int:
     print(f"budget remaining:  {remaining_frac * 100:.1f}%  (~{minutes_left:.0f} min of {minutes_total:.0f})")
 
     if remaining_frac < 0.1:
-        print("STATUS: <10% — feature freeze per error-budget policy")
+        print("STATUS: <10%  feature freeze per error-budget policy")
         return 1
     print("STATUS: healthy")
     return 0

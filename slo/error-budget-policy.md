@@ -1,7 +1,7 @@
 # Error-Budget Policy
 
 The error budget is the amount of unreliability an SLO permits over a window. If a
-service targets **99.9%** availability over 30 days, the budget is **0.1%** — about
+service targets **99.9%** availability over 30 days, the budget is **0.1%**  about
 **43 minutes** of allowed unavailability per 30-day window.
 
 This policy turns that number into decisions everyone agrees to in advance, so we are
@@ -21,8 +21,8 @@ security patches, reliability fixes, or rollback of a bad change.
 
 ## Burn-rate alerting (how we detect spend)
 
-We alert on **burn rate** — how fast the budget is being consumed relative to the
-window — using multi-window, multi-burn-rate alerts (Google SRE workbook):
+We alert on **burn rate**  how fast the budget is being consumed relative to the
+window  using multi-window, multi-burn-rate alerts (Google SRE workbook):
 
 | Severity | Burn rate | Long window | Short window | Budget consumed before fire |
 |----------|-----------|-------------|--------------|-----------------------------|

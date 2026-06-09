@@ -8,4 +8,4 @@
 | **SEV4** | Low: cosmetic or no customer impact | Logging gap, flaky non-blocking alert | Backlog | None |
 
 **When unsure, round up.** It is cheaper to downgrade a SEV2 than to under-respond to a
-real SEV1. Severity can change as understanding improves — restate it explicitly when it does.
+real SEV1. Severity can change as understanding improves  restate it explicitly when it does.
