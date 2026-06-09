@@ -1,0 +1,63 @@
+# Prometheus alerting rules for Confluent Kafka on Kubernetes.
+# Assumes kafka-exporter (consumer lag) and JMX/kafka broker metrics are scraped.
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: kafka-alerts
+  namespace: monitoring
+  labels:
+    release: kube-prometheus-stack
+spec:
+  groups:
+    - name: kafka.consumer
+      rules:
+        - alert: KafkaConsumerLagHigh
+          expr: |
+            max by (consumergroup, topic) (kafka_consumergroup_lag) > 10000
+          for: 10m
+          labels:
+            severity: warning
+            runbook: sre-runbooks-incident-toolkit/runbooks/kafka-consumer-lag.md
+          annotations:
+            summary: "High consumer lag on {{ $labels.consumergroup }} / {{ $labels.topic }}"
+            description: "Consumer group {{ $labels.consumergroup }} lag > 10k on topic {{ $labels.topic }} for 10m."
+
+        - alert: KafkaConsumerLagGrowing
+          expr: |
+            deriv(max by (consumergroup) (kafka_consumergroup_lag)[15m:1m]) > 0
+            and max by (consumergroup) (kafka_consumergroup_lag) > 5000
+          for: 15m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Growing consumer lag on {{ $labels.consumergroup }}"
+            description: "Lag is trending upward and not draining — consumers may be falling behind."
+
+    - name: kafka.broker
+      rules:
+        - alert: KafkaUnderReplicatedPartitions
+          expr: kafka_server_replicamanager_underreplicatedpartitions > 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Under-replicated partitions on broker {{ $labels.pod }}"
+            description: "{{ $value }} under-replicated partitions — broker or replication trouble."
+
+        - alert: KafkaOfflinePartitions
+          expr: kafka_controller_kafkacontroller_offlinepartitionscount > 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Offline Kafka partitions"
+            description: "{{ $value }} partitions are offline — data unavailable for those partitions."
+
+        - alert: KafkaBrokerDown
+          expr: up{job="kafka"} == 0
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Kafka broker {{ $labels.instance }} down"
+            description: "Broker has been unreachable for 2m."

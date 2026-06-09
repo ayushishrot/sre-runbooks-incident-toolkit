@@ -1,0 +1,99 @@
+{
+  "title": "Confluent Kafka on Kubernetes",
+  "uid": "kafka-k8s-overview",
+  "schemaVersion": 39,
+  "version": 1,
+  "editable": true,
+  "tags": ["kafka", "sre"],
+  "time": { "from": "now-6h", "to": "now" },
+  "templating": {
+    "list": [
+      {
+        "name": "consumergroup",
+        "type": "query",
+        "datasource": "Prometheus",
+        "query": "label_values(kafka_consumergroup_lag, consumergroup)",
+        "includeAll": true,
+        "multi": true
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "Consumer lag by group",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "max by (consumergroup) (kafka_consumergroup_lag{consumergroup=~\"$consumergroup\"})",
+          "legendFormat": "{{consumergroup}}"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Messages in per topic (rate)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "sum by (topic) (rate(kafka_topic_partition_current_offset[5m]))",
+          "legendFormat": "{{topic}}"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Under-replicated partitions",
+      "type": "stat",
+      "gridPos": { "h": 6, "w": 6, "x": 0, "y": 8 },
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "red", "value": 1 }
+            ]
+          }
+        }
+      },
+      "targets": [
+        { "expr": "sum(kafka_server_replicamanager_underreplicatedpartitions)" }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Offline partitions",
+      "type": "stat",
+      "gridPos": { "h": 6, "w": 6, "x": 6, "y": 8 },
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "red", "value": 1 }
+            ]
+          }
+        }
+      },
+      "targets": [
+        { "expr": "sum(kafka_controller_kafkacontroller_offlinepartitionscount)" }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Active brokers",
+      "type": "stat",
+      "gridPos": { "h": 6, "w": 12, "x": 12, "y": 8 },
+      "datasource": "Prometheus",
+      "targets": [
+        { "expr": "count(up{job=\"kafka\"} == 1)" }
+      ]
+    }
+  ]
+}
